@@ -89,13 +89,15 @@ def get_report(conn, event_uids, data_elements):
 
 def main():
     # Define your database path and password
-    db_path = "/Users/fradiptaalqaiyum/Library/Developer/CoreSimulator/Devices/0562FEDB-C4F0-4B9A-9940-AC5267CC82FB/data/Containers/Data/Application/E9C46BCF-41B9-4F75-B3F1-45273D6E32E5/Documents/dhis.db"
+    db_path = "/Users/fradiptaalqaiyum/Documents/restore-db-gps-polygon/martin.joseph-20250409130119/dhis.db"
     password = keys.get_db_password()
     # Store list of changed event
     list_of_changed_event = []
     # Store list of changed data element target
     list_of_changed_de_target = []
-    # Store username
+    # Store filename
+    filename = db_path.split('/')[5]
+    
     
 
     # Find Events to restore
@@ -214,7 +216,6 @@ def main():
                                 # Execute the update query for every event
                                 try:
                                     if valueType != 'UNKNOWN':
-                                        
                                         update_event(conn, eventUid, valueToUpdate, dataElement)
                                         conn.commit()
                                     else:
@@ -231,16 +232,11 @@ def main():
                     #Get Username for filename from query
                     cursor.execute("SELECT username FROM ktv_user_profile")
                     rows = cursor.fetchall()
-                    if rows:
-                        username = rows[0][0]
-                    else:
-                        username = "unknown"
-                    
                     # Export changes to CSV
                     report = get_report(conn, list_of_changed_event, list_of_changed_de_target)
                     if report:
                         # Write the report to CSV with headers
-                        with open(f"{username}_restore_missing_gps_polygon.csv", "w") as f:
+                        with open(f"{filename}_restore_missing_gps_polygon.csv", "w") as f:
                             # Write CSV header
                             f.write("id,event,dataElement,storedBy,value\n")
                             

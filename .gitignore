@@ -176,3 +176,4 @@ keys.py
 
 # CSV files
 *.csv
+*.db
