@@ -1,5 +1,6 @@
 import sqlite3
 import os
+import keys
 
 def connect_to_db(db_path, password):
     """
@@ -88,8 +89,8 @@ def get_report(conn, event_uids, data_elements):
 
 def main():
     # Define your database path and password
-    db_path = ""
-    password = ""
+    db_path = "/Users/fradiptaalqaiyum/Library/Developer/CoreSimulator/Devices/0562FEDB-C4F0-4B9A-9940-AC5267CC82FB/data/Containers/Data/Application/E9C46BCF-41B9-4F75-B3F1-45273D6E32E5/Documents/dhis.db"
+    password = keys.get_db_password()
     # Store list of changed event
     list_of_changed_event = []
     # Store list of changed data element target
